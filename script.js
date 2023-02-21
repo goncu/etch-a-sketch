@@ -59,8 +59,6 @@ classSelect(`change-size`).addEventListener(`click`, function () {
 });
 //for randomizing the color.
 classSelect(`change-color`).addEventListener(`click`, function () {
-  classSelect(`container`).innerHTML = ``;
-  initialize();
   let red = Math.trunc(Math.random() * 256);
   let green = Math.trunc(Math.random() * 256);
   let blue = Math.trunc(Math.random() * 256);
@@ -95,8 +93,6 @@ classSelect(`change-color`).addEventListener(`click`, function () {
 });
 //for rainbow
 classSelect(`rainbow`).addEventListener(`click`, function () {
-  classSelect(`container`).innerHTML = ``;
-  initialize();
   for (let i = 1; i <= numberOfColumns; i++) {
     for (let y = 1; y <= numberOfRows; y++) {
       idSelect(`${i}--${y}`).addEventListener(`mouseover`, function () {
