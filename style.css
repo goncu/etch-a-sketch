@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: antiquewhite;
+}
+
+h1 {
+  text-align: center;
+  padding: 24px;
+  font-size: 36px;
+}
+
+.container {
+  width: 480px;
+  height: 480px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(16, auto);
+  grid-template-rows: repeat(16, auto);
+}
+
+.to-center {
+  text-align: center;
+  margin: 20px auto;
+}
+
+button {
+  padding: 5px;
+}
+
+.box {
+  border: 1px solid black;
+  /* height: 10px;
+  width: 10px; */
+}
