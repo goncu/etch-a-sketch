@@ -41,11 +41,11 @@ classSelect(`change-size`).addEventListener(`click`, function () {
         `Enter a number between 0-100 for the number of boxes per column and row`
       )
     );
+    if (!(manualSize <= 100 && manualSize > 0)) {
+      editSize();
+    }
   }
   editSize();
-  if (!(manualSize <= 100 && manualSize > 0)) {
-    editSize();
-  }
   numberOfColumns = manualSize;
   numberOfRows = manualSize;
   classSelect(
