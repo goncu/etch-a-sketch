@@ -32,7 +32,7 @@ const toggleButtons = function (a, b) {
 };
 //initialize
 createBoxes(numberOfColumns, numberOfRows);
-//for changing the size. Ask for a value; if outside limits, ask again. Then, delete the board and initialize with the new value.
+//for changing the size
 classSelect(`btn-change-size`).addEventListener(`click`, function () {
   let manualSize = document.getElementById(`change-size`).value;
   if (manualSize > 0 && manualSize <= 100) {
@@ -46,6 +46,8 @@ classSelect(`btn-change-size`).addEventListener(`click`, function () {
     ).style.gridTemplateRows = `repeat(${manualSize}, auto)`;
     classSelect(`container`).innerHTML = ``;
     createBoxes(numberOfColumns, numberOfRows);
+    classSelect(`btn-draw`).classList.remove(`active`);
+    classSelect(`btn-erase`).classList.remove(`active`);
   }
 });
 //for drawing
