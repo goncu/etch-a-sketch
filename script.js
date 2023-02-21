@@ -16,83 +16,59 @@ const createBoxes = function (i, y) {
   }
 };
 //function for painting the boxes
-const paintBoxes = function () {
+let paintBoxes = function (a, b, c) {
   for (let i = 1; i <= numberOfColumns; i++) {
     for (let y = 1; y <= numberOfRows; y++) {
       idSelect(`${i}--${y}`).addEventListener(`mouseover`, function () {
-        this.style.backgroundColor = `rgb(0, 0, 0)`;
+        idSelect(`${i}--${y}`).style.backgroundColor = `rgb(${a}, ${b}, ${c})`;
       });
     }
   }
 };
-//function for initializing
-const initialize = () => {
-  createBoxes(numberOfColumns, numberOfRows);
-  paintBoxes();
+//function for toggling draw and erase buttons
+const toggleButtons = function (a, b) {
+  classSelect(a).classList.add(`active`);
+  classSelect(b).classList.remove(`active`);
 };
-//initializing the first board
-initialize();
+//initialize
+createBoxes(numberOfColumns, numberOfRows);
 //for changing the size. Ask for a value; if outside limits, ask again. Then, delete the board and initialize with the new value.
-classSelect(`change-size`).addEventListener(`click`, function () {
-  let manualSize;
-  function editSize() {
-    manualSize = Number(
-      prompt(
-        `Enter a number between 0-100 for the number of boxes per column and row`
-      )
-    );
-    if (!(manualSize <= 100 && manualSize > 0)) {
-      editSize();
-    }
+classSelect(`btn-change-size`).addEventListener(`click`, function () {
+  let manualSize = document.getElementById(`change-size`).value;
+  if (manualSize > 0 && manualSize <= 100) {
+    numberOfColumns = manualSize;
+    numberOfRows = manualSize;
+    classSelect(
+      `container`
+    ).style.gridTemplateColumns = `repeat(${manualSize}, auto)`;
+    classSelect(
+      `container`
+    ).style.gridTemplateRows = `repeat(${manualSize}, auto)`;
+    classSelect(`container`).innerHTML = ``;
+    createBoxes(numberOfColumns, numberOfRows);
   }
-  editSize();
-  numberOfColumns = manualSize;
-  numberOfRows = manualSize;
-  classSelect(
-    `container`
-  ).style.gridTemplateColumns = `repeat(${manualSize}, auto)`;
-  classSelect(
-    `container`
-  ).style.gridTemplateRows = `repeat(${manualSize}, auto)`;
-  classSelect(`container`).innerHTML = ``;
-  initialize();
+});
+//for drawing
+classSelect(`btn-draw`).addEventListener(`click`, () => {
+  toggleButtons(`btn-draw`, `btn-erase`);
+  paintBoxes(0, 0, 0);
+});
+//for erasing
+classSelect(`btn-erase`).addEventListener(`click`, () => {
+  toggleButtons(`btn-erase`, `btn-draw`);
+  paintBoxes(250, 235, 215);
 });
 //for randomizing the color.
 classSelect(`change-color`).addEventListener(`click`, function () {
+  toggleButtons(`btn-draw`, `btn-erase`);
   let red = Math.trunc(Math.random() * 256);
   let green = Math.trunc(Math.random() * 256);
   let blue = Math.trunc(Math.random() * 256);
-  const toSubtractFromRed = Math.floor((red * 10) / 100);
-  const toSubtractFromGreen = Math.floor((green * 10) / 100);
-  const toSubtractFromBlue = Math.floor((blue * 10) / 100);
-  for (let i = 1; i <= numberOfColumns; i++) {
-    for (let y = 1; y <= numberOfRows; y++) {
-      idSelect(`${i}--${y}`).addEventListener(`mouseover`, function () {
-        this.style.backgroundColor = `rgb(${red}, ${green}, ${blue})`;
-        if (red > 0) {
-          red -= toSubtractFromRed;
-          if (red < 0) {
-            red = 0;
-          }
-        }
-        if (green > 0) {
-          green -= toSubtractFromGreen;
-          if (green < 0) {
-            green = 0;
-          }
-        }
-        if (blue > 0) {
-          blue -= toSubtractFromBlue;
-          if (blue < 0) {
-            blue = 0;
-          }
-        }
-      });
-    }
-  }
+  paintBoxes(red, green, blue);
 });
 //for rainbow
 classSelect(`rainbow`).addEventListener(`click`, function () {
+  toggleButtons(`btn-draw`, `btn-erase`);
   for (let i = 1; i <= numberOfColumns; i++) {
     for (let y = 1; y <= numberOfRows; y++) {
       idSelect(`${i}--${y}`).addEventListener(`mouseover`, function () {
@@ -103,4 +79,19 @@ classSelect(`rainbow`).addEventListener(`click`, function () {
       });
     }
   }
+});
+//for choosing the color
+classSelect(`choose-color`).addEventListener(`input`, function (e) {
+  toggleButtons(`btn-draw`, `btn-erase`);
+  const colorValue = classSelect(`choose-color`).value;
+  const red = parseInt(colorValue.substr(1, 2), 16);
+  const green = parseInt(colorValue.substr(3, 2), 16);
+  const blue = parseInt(colorValue.substr(5, 2), 16);
+  paintBoxes(red, green, blue);
+});
+//for resetting
+classSelect(`reset`).addEventListener(`click`, function () {
+  document.querySelectorAll(`.box`).forEach(function (e) {
+    e.style.backgroundColor = `rgb(250, 235, 215)`;
+  });
 });

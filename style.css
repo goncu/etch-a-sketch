@@ -5,7 +5,7 @@
 }
 
 body {
-  background-color: antiquewhite;
+  background-color: rgb(250, 235, 215);
 }
 
 h1 {
@@ -17,7 +17,7 @@ h1 {
 .container {
   width: 480px;
   height: 480px;
-  margin: auto;
+  /* margin: auto; */
   display: grid;
   grid-template-columns: repeat(16, auto);
   grid-template-rows: repeat(16, auto);
@@ -27,8 +27,28 @@ h1 {
 .to-center {
   text-align: center;
   margin: 20px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 button {
   padding: 5px;
+}
+
+#change-size {
+  margin: 0 5px;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.active {
+  background-color: black;
+  color: white;
 }
