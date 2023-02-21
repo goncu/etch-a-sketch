@@ -20,7 +20,7 @@ const paintBoxes = function () {
   for (let i = 1; i <= numberOfColumns; i++) {
     for (let y = 1; y <= numberOfRows; y++) {
       idSelect(`${i}--${y}`).addEventListener(`mouseover`, function () {
-        this.style.backgroundColor = `black`;
+        this.style.backgroundColor = `rgb(0, 0, 0)`;
       });
     }
   }
@@ -43,7 +43,7 @@ classSelect(`change-size`).addEventListener(`click`, function () {
     );
   }
   editSize();
-  if (manualSize > 100 || manualSize <= 0) {
+  if (!(manualSize <= 100 && manualSize > 0)) {
     editSize();
   }
   numberOfColumns = manualSize;
