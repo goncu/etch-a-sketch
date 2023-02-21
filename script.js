@@ -30,8 +30,14 @@ const toggleButtons = function (a, b) {
   classSelect(a).classList.add(`active`);
   classSelect(b).classList.remove(`active`);
 };
-//initialize
-createBoxes(numberOfColumns, numberOfRows);
+//function for initialize
+const initialize = function () {
+  classSelect(`container`).innerHTML = ``;
+  createBoxes(numberOfColumns, numberOfRows);
+  classSelect(`btn-draw`).classList.remove(`active`);
+  classSelect(`btn-erase`).classList.remove(`active`);
+};
+initialize();
 //for changing the size
 classSelect(`btn-change-size`).addEventListener(`click`, function () {
   let manualSize = document.getElementById(`change-size`).value;
@@ -44,10 +50,7 @@ classSelect(`btn-change-size`).addEventListener(`click`, function () {
     classSelect(
       `container`
     ).style.gridTemplateRows = `repeat(${manualSize}, auto)`;
-    classSelect(`container`).innerHTML = ``;
-    createBoxes(numberOfColumns, numberOfRows);
-    classSelect(`btn-draw`).classList.remove(`active`);
-    classSelect(`btn-erase`).classList.remove(`active`);
+    initialize();
   }
 });
 //for drawing
@@ -93,7 +96,5 @@ classSelect(`choose-color`).addEventListener(`input`, function (e) {
 });
 //for resetting
 classSelect(`reset`).addEventListener(`click`, function () {
-  document.querySelectorAll(`.box`).forEach(function (e) {
-    e.style.backgroundColor = `rgb(250, 235, 215)`;
-  });
+  initialize();
 });
